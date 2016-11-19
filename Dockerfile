@@ -4,7 +4,6 @@ MAINTAINER Rasyid Fahroni <rasyid@rasyidfahroni.com>
 
 LABEL "contains"="nginx, php7"
 
-# ENV HTDOCS /var/www/localhost/htdocs
 ENV NGINX /etc/nginx
 ENV PHP7 /etc/php7
 ENV error_reporting E_ALL
@@ -29,7 +28,6 @@ COPY config/nginx/ $NGINX/
 COPY ./start.sh /
 
 RUN mkdir /run/nginx;\
-touch /run/nginx/nginx.pid;\
 ln -s /etc/nginx/sites-available/* /etc/nginx/sites-enabled/;\
 sed -i "s/user = .*/user = nginx/" /etc/php7/php-fpm.d/www.conf;\
 sed -i "s/group = .*/group = www-data/" /etc/php7/php-fpm.d/www.conf;\
@@ -43,6 +41,7 @@ sed -i "s/;emergency_restart_interval = .*/emergency_restart_interval = 1m/" /et
 sed -i "s/;process_control_timeout = .*/process_control_timeout = 10s/" /etc/php7/php-fpm.conf;\
 sed -i "s/error_reporting = .*/error_reporting = ${error_reporting}/" /etc/php7/php.ini;\
 sed -i "s/;cgi.fix_pathinfo=.*/cgi.fix_pathinfo=0/" /etc/php7/php.ini;\
+sed -i "s/;opcache.enable=.*/opcache.enable=1/" /etc/php7/php.ini;\
 chmod +x /start.sh
 
 EXPOSE 80
