@@ -4,9 +4,9 @@ MAINTAINER Rasyid Fahroni <rasyid@rasyidfahroni.com>
 
 LABEL "contains"="nginx, php7"
 
-ENV NGINX /etc/nginx
-ENV PHP7 /etc/php7
-ENV error_reporting E_ALL
+ARG SERVER_NAME=web.local
+ARG error_reporting=E_ALL
+ENV NGINX="/etc/nginx" PHP7="/etc/php7"
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories;\
 apk update;\
@@ -28,6 +28,7 @@ COPY config/nginx/ $NGINX/
 COPY ./start.sh /
 
 RUN mkdir /run/nginx;\
+sed -i "s/server_name .*/server_name ${SERVER_NAME};/" /etc/nginx/sites-available/default.conf;\
 ln -s /etc/nginx/sites-available/* /etc/nginx/sites-enabled/;\
 sed -i "s/user = .*/user = nginx/" /etc/php7/php-fpm.d/www.conf;\
 sed -i "s/group = .*/group = www-data/" /etc/php7/php-fpm.d/www.conf;\
