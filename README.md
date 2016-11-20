@@ -50,21 +50,25 @@ Small Size Dockerized Nginx + PHP-FPM7, with Alpine Linux as base image.
   ```
   $ docker images
   ```
+
 - The output from above command should be like this (in this case I passed rasyid-php7 as the name/tag of the image):
   ```
   docker-p7fpm-ng (master) $ docker images
   REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
   rasyid-php7         latest              1f4aeecbca82        15 hours ago        38.41 MB
   ```
+
 - To run the image, run this command:
   ```
   $ docker run -d --name php7-webserver -v /home/your-username/your-php-project:/var/www/localhost/htdocs -ti the-name-of-the-image
   ```
+
   The flag -v above, means that we set mount the host folder /home/your-username/your-php-project, to the docker container folder at /var/www/localhost/htdocs, which is the webroot
 - To access the webroot from docker host, you need to find out what the ip address of the container first. To do this, run this command:
   ```
   $ docker inspect php7-webserver | grep IPAddress
   ```
+
 - Access the ipaddress from your web browser
 - The default server_name is web.local (if you not passing any parameters when build the image), you may want to set your /etc/hosts to pointing the ip address of docker container to that server_name
 
