@@ -41,7 +41,7 @@ Small Size Dockerized Nginx + PHP-FPM7, with Alpine Linux as base image.
 
 - Inside folder repo, run this command to build the image with custom argument:
   ```
-  $ docker build -t whatever-name-tag-you-want -e SERVER_NAME=yourdomain.local .
+  $ docker build -t whatever-name-tag-you-want --build-arg SERVER_NAME=yourdomain.local .
   ```
   In this case, we passing the SERVER_NAME argument and set it to yourdomain.local . Beside SERVER_NAME, there is also another argument that you can passing out to the images. You can check it at the Features line above.
 
