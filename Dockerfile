@@ -49,6 +49,7 @@ ADD config/nginx/ $NGINX/
 ADD ./start.sh /
 
 RUN mkdir /run/nginx;\
+mkdir /etc/nginx/sites-enabled/;\
 sed -i "s/server_name .*/server_name ${SERVER_NAME};/" /etc/nginx/sites-available/default.conf;\
 ln -s /etc/nginx/sites-available/* /etc/nginx/sites-enabled/;\
 sed -i "s/user = .*/user = nginx/" /etc/php7/php-fpm.d/www.conf;\
